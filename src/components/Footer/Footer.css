@@ -1,0 +1,15 @@
+.foot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black; 
+     color: aliceblue; 
+     height: 250px;
+}
+
+.icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   
+}
