@@ -1,43 +1,111 @@
+import { useState } from "react";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 import "./Signup.css"
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
 
-    return (
-        <div className="new1">
-            <div className="new">
-                <div className="signup">
-                    <label><b>Sign Up</b></label>
-                </div>
-                <div className="new2">
-                    <div className="first">
-                        <label><b>First name</b></label>
-                        <input placeHolder="  First name" className="ni"></input>
-                    </div>
-                    <div className="last">
-                        <label><b>Last name</b></label>
-                        <input placeHolder="  Last name" className="ni"></input>
-                    </div>
-                    <div className="address">
-                        <label><b>Email address</b></label>
-                        <input placeHolder="  Enter email" className="ni"></input>
-                    </div>
-                    <div className="pass">
-                        <label><b>Password</b></label>
-                        <input placeHolder="  Enter password" className="ni" type="password"></input>
-                    </div>
-                    <div className="btn">
-                        <button><b>Sign Up</b></button>
-                    </div>
-                </div>
-                <div className="signin">
-                    <label >Already registered <a href="#">sign in?</a></label>
-                </div>
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleSignUp = () => {
+
+        console.log("FirstName = " + firstName);
+
+        console.log("LastName = " + lastName);
+
+        console.log("Email =" + email);
+
+        console.log("Password = " + password);
+
+
+
+        // Session sotrage code
+        let data = JSON.parse(sessionStorage.getItem("items"));
+
+        if (data == null) {
+            data = []
+        }
+
+        data.push({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password
+        });
+
+        sessionStorage.setItem("items", JSON.stringify(data));
+
+        let metachData = data.filter((e) => e.firstName === firstName && e.lastName === lastName && e.email === email && e.password === password);
+
+
+        if (metachData.length > 0) {
+            // succesfukk
+            console.log("Successfully data");
+            navigate("/");
+        } else {
+            //invalid
+            setError("Invalid data");
+        }
+
+      //  not a null value 
+        if (firstName && lastName && email && password === 0) {
+            console.log("Enter value");
+
+        }
+        else {
+            setError("Pleae enter value");
+        }
+
+        
+    }
+
+    return (
+        <>
+            <Header />
+            <div className="new1">
+                <div className="new">
+                    <div className="signup">
+                        <label><b>Sign Up</b></label>
+                    </div>
+                    <div className="new2">
+                        <div className="first">
+                            <label><b>First name</b></label>
+                            <input placeholder="  First name" className="ni" value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
+                        </div>
+                        <div className="last">
+                            <label><b>Last name</b></label>
+                            <input placeholder="  Last name" className="ni" value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
+                        </div>
+                        <div className="address">
+                            <label><b>Email address</b></label>
+                            <input placeholder="  Enter email" className="ni" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        </div>
+                        <div className="pass">
+                            <label><b>Password</b></label>
+                            <input placeholder="  Enter password" className="ni" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        </div>
+                        <div className="btn">
+                            <button onClick={handleSignUp}><b>Sign Up</b></button>
+                        </div>
+                    </div>
+                    {/* <div className="signin">
+                        <label >Already registered <a href="#">sign in?</a></label>
+                    </div> */}
+
+                    <p onClick={() => navigate('/Signin')} style={{ cursor: 'pointer' }}>Already have an account? Login</p>
+                </div>
 
             </div>
-        </div>
-
-
+            <Footer />
+        </>
 
     )
 }

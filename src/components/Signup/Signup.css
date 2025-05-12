@@ -44,7 +44,7 @@
 button {
 
     width: 258px;
-    background: rgb(203, 203, 236);
+    background: #007bff;
     border: 0cap;
 
 }
@@ -53,6 +53,7 @@ button {
     display: flex;
     justify-content: start;
     margin-top: 20px;
+    height: 30px;
 
 }
 
