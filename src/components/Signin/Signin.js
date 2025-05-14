@@ -15,33 +15,48 @@ function Signin() {
 
     const handleSignin = () => {
 
-       //not a null value 
-       if(email === "" || password === "")
-        {
-             console.log("Enter value");
-        }
-        else{
-         setError("Pleae enter email and password");
-        }
+       
+
         console.log("Email = "+ email);
 
         console.log("Password = "+ password);
 
         // Session sotrage code
-        let data = JSON.parse(sessionStorage.getItem("items")) || [];
+        let data = JSON.parse(sessionStorage.getItem("register"));
+        if (data == null) {
+            data = []
+        }
 
        let metachData = data.filter((e) => e.email === email && e.password === password);
 
+
        if(metachData.length > 0){
         // succesfukk
+        let data1 = [];
+        data1.push({
+           
+            email: email,
+            password: password
+        });
+
+        sessionStorage.setItem("login", JSON.stringify(data1));
         console.log("Successfully data");
         navigate("/");
        }else{
         //invalid
-        setError("Invalid data");
+        setError("Pleae enter email and password");
        }
-
        
+      
+          //not a null value 
+       if(email === "" || password === "")
+        {
+             console.log("Enter value");
+        }
+      
+        else{
+         setError("Invalid data");
+        }
       
     }
 

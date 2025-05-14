@@ -27,6 +27,13 @@ function Signup() {
 
 
 
+        //  not a null value 
+        if (firstName === "" || lastName === "" || email === "" || password === "") {
+            setError("Please fill out all fields");
+            return;
+        }
+
+
         // Session sotrage code
         let data = JSON.parse(sessionStorage.getItem("items"));
 
@@ -41,30 +48,43 @@ function Signup() {
             password: password
         });
 
-        sessionStorage.setItem("items", JSON.stringify(data));
+        sessionStorage.setItem("register", JSON.stringify(data));
 
         let metachData = data.filter((e) => e.firstName === firstName && e.lastName === lastName && e.email === email && e.password === password);
 
-
         if (metachData.length > 0) {
+            let data = [];
+            data.push({
+
+                email: email,
+                password: password
+            });
+
+            sessionStorage.setItem("login", JSON.stringify(data));
+
             // succesfukk
             console.log("Successfully data");
             navigate("/");
         } else {
             //invalid
-            setError("Invalid data");
-        }
-
-      //  not a null value 
-        if (firstName && lastName && email && password === 0) {
-            console.log("Enter value");
-
-        }
-        else {
             setError("Pleae enter value");
         }
 
-        
+        const handleSignup = (e) => {
+            e.preventDefault();
+
+            if (!email || !password) {
+                alert("All fields are required");
+                return;
+            }
+
+            // Simulate signup
+            const userData = { token: "sample_token", email };
+            sessionStorage.setItem("loggedInUser", JSON.stringify(userData));
+            navigate("/dashboard"); // or home
+        };
+
+
     }
 
     return (
@@ -100,6 +120,7 @@ function Signup() {
                         <label >Already registered <a href="#">sign in?</a></label>
                     </div> */}
 
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                     <p onClick={() => navigate('/Signin')} style={{ cursor: 'pointer' }}>Already have an account? Login</p>
                 </div>
 
