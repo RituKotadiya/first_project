@@ -16,11 +16,11 @@ function App() {
           <Route path="/Signin" element={<Signin />} />
       <Route path="/Signup" element={<Signup />} />
       <Route path="/" element={<Homepage />} />
-      <Route path="Myprofile" element={<Myprofile />} />
+      <Route path="Myprofile" element={<Myprofile /> } />
 
     </BrowserRouter>
 
-
+   
    
   );
 }

@@ -38,6 +38,9 @@ function Header() {
         navigate("/Signin");
     };
 
+    const handleMyProfile = () => {
+        navigate("/Myprofile");
+    }
 
     sessionStorage.setItem("loggedInUser", JSON.stringify({ token: "your_token_here" }));
 
@@ -52,9 +55,9 @@ function Header() {
                     <a href="#"><li><b>Product</b></li></a>
                     <a href="#"><li><b>For teoms</b></li></a>
                     <a href="#"><li><b>Support</b></li></a>
-                  {
-                    isLoggedIn ?  <a href="#"><li><b>My Profile</b></li></a> : null
-                  } 
+                    {
+                        isLoggedIn ? <li onClick={handleMyProfile} style={{ cursor: "pointer" }}><b>My Profile</b></li> : null
+                    }
                 </ul>
                 <div className="b">
                     {
