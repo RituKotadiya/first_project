@@ -10,12 +10,19 @@ function Signin() {
       const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSignin = () => {
 
-       
+        if (newPassword !== confirmPassword) {
+            setError("New password and confirm password must match.");
+            return;
+        }
 
         console.log("Email = "+ email);
 
@@ -57,7 +64,9 @@ function Signin() {
         else{
          setError("Invalid data");
         }
-      
+       setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
     }
 
    
@@ -79,7 +88,7 @@ function Signin() {
                     </div>
                     <div className="password">
                         <label><b>Password</b></label><br />
-                        <input className="in" placeHolder="  Enter your password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <input className="in" placeHolder="  Enter your password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
                     </div>
                     {/* <div className="checkbox">
                         <input type="checkbox"></input>
